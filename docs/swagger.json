@@ -1,0 +1,294 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "contact": {}
+    },
+    "paths": {
+        "/feiras/": {
+            "get": {
+                "description": "Reads and returns all the tasks.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "read"
+                ],
+                "summary": "Get all feiras",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Distrito",
+                        "name": "distrito",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Região 5",
+                        "name": "regiao5",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Nome Feira",
+                        "name": "nome_feira",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Bairro",
+                        "name": "bairro",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/definitions/domain.Feira"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/api.ErrorMessage"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "description": "Updates feira by registro",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "write"
+                ],
+                "summary": "Updates feira",
+                "parameters": [
+                    {
+                        "description": "Feira",
+                        "name": "feira",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/domain.Feira"
+                        }
+                    }
+                ],
+                "responses": {
+                    "202": {
+                        "description": ""
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/api.ErrorMessage"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/api.ErrorMessage"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "Creates a new feira.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "write"
+                ],
+                "summary": "Creates feira",
+                "parameters": [
+                    {
+                        "description": "New Feira",
+                        "name": "feira",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/domain.Feira"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/domain.Feira"
+                        }
+                    },
+                    "409": {
+                        "description": "Conflict",
+                        "schema": {
+                            "$ref": "#/definitions/api.ErrorMessage"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/api.ErrorMessage"
+                        }
+                    }
+                }
+            }
+        },
+        "/feiras/{registro}": {
+            "get": {
+                "description": "Reads and feira by id.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "read"
+                ],
+                "summary": "Get Feira",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Feira Registro",
+                        "name": "registro",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/domain.Feira"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/api.ErrorMessage"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "Deletes a feira by registro",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "write"
+                ],
+                "summary": "Delete feira",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Feira Registro",
+                        "name": "registro",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "202": {
+                        "description": "Accepted",
+                        "schema": {
+                            "$ref": "#/definitions/domain.Feira"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/api.ErrorMessage"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "api.ErrorMessage": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string"
+                }
+            }
+        },
+        "domain.Feira": {
+            "type": "object",
+            "properties": {
+                "area_p": {
+                    "type": "integer"
+                },
+                "bairro": {
+                    "type": "string"
+                },
+                "cod_dist": {
+                    "type": "integer"
+                },
+                "cod_sub_pref": {
+                    "type": "integer"
+                },
+                "distrito": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "lat": {
+                    "type": "integer"
+                },
+                "logradouro": {
+                    "type": "string"
+                },
+                "long": {
+                    "type": "integer"
+                },
+                "nome_feira": {
+                    "type": "string"
+                },
+                "numero": {
+                    "type": "string"
+                },
+                "referencia": {
+                    "type": "string"
+                },
+                "regiao_5": {
+                    "type": "string"
+                },
+                "regiao_8": {
+                    "type": "string"
+                },
+                "registro": {
+                    "type": "string"
+                },
+                "set_cens": {
+                    "type": "integer"
+                },
+                "sub_prefe": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}

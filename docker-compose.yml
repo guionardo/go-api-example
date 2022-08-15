@@ -1,0 +1,14 @@
+version: '3.7'
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    user: nonroot
+    ports:
+      - 8080:8080
+    volumes:
+      - data:./data
+
+volumes:
+  data:

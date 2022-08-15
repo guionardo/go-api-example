@@ -1,0 +1,192 @@
+definitions:
+  api.ErrorMessage:
+    properties:
+      message:
+        type: string
+    type: object
+  domain.Feira:
+    properties:
+      area_p:
+        type: integer
+      bairro:
+        type: string
+      cod_dist:
+        type: integer
+      cod_sub_pref:
+        type: integer
+      distrito:
+        type: string
+      id:
+        type: integer
+      lat:
+        type: integer
+      logradouro:
+        type: string
+      long:
+        type: integer
+      nome_feira:
+        type: string
+      numero:
+        type: string
+      referencia:
+        type: string
+      regiao_5:
+        type: string
+      regiao_8:
+        type: string
+      registro:
+        type: string
+      set_cens:
+        type: integer
+      sub_prefe:
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /feiras/:
+    get:
+      consumes:
+      - application/json
+      description: Reads and returns all the tasks.
+      parameters:
+      - description: Distrito
+        in: query
+        name: distrito
+        type: string
+      - description: Região 5
+        in: query
+        name: regiao5
+        type: string
+      - description: Nome Feira
+        in: query
+        name: nome_feira
+        type: string
+      - description: Bairro
+        in: query
+        name: bairro
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              items:
+                $ref: '#/definitions/domain.Feira'
+              type: array
+            type: array
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/api.ErrorMessage'
+      summary: Get all feiras
+      tags:
+      - read
+    post:
+      consumes:
+      - application/json
+      description: Creates a new feira.
+      parameters:
+      - description: New Feira
+        in: body
+        name: feira
+        required: true
+        schema:
+          $ref: '#/definitions/domain.Feira'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/domain.Feira'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/api.ErrorMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/api.ErrorMessage'
+      summary: Creates feira
+      tags:
+      - write
+    put:
+      consumes:
+      - application/json
+      description: Updates feira by registro
+      parameters:
+      - description: Feira
+        in: body
+        name: feira
+        required: true
+        schema:
+          $ref: '#/definitions/domain.Feira'
+      produces:
+      - application/json
+      responses:
+        "202":
+          description: ""
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/api.ErrorMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/api.ErrorMessage'
+      summary: Updates feira
+      tags:
+      - write
+  /feiras/{registro}:
+    delete:
+      consumes:
+      - application/json
+      description: Deletes a feira by registro
+      parameters:
+      - description: Feira Registro
+        in: path
+        name: registro
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "202":
+          description: Accepted
+          schema:
+            $ref: '#/definitions/domain.Feira'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/api.ErrorMessage'
+      summary: Delete feira
+      tags:
+      - write
+    get:
+      consumes:
+      - application/json
+      description: Reads and feira by id.
+      parameters:
+      - description: Feira Registro
+        in: path
+        name: registro
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/domain.Feira'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/api.ErrorMessage'
+      summary: Get Feira
+      tags:
+      - read
+swagger: "2.0"
